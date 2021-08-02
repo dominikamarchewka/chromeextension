@@ -3,12 +3,27 @@ const inputBtn = document.getElementById("input-btn");
 let myLeads = [];
 const inputEl = document.getElementById("input-el");
 const ulEl = document.getElementById("ul-el");
+const deleteBtn = document.getElementById("delete-btn");
+const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"));
+
+deleteBtn.addEventListener("dblclick", function(){
+    localStorage.clear();
+    myLeads = [];
+    renderLeads();
+});
+
+if (leadsFromLocalStorage){
+    myLeads = leadsFromLocalStorage
+    renderLeads()
+}
 
 inputBtn.addEventListener("click", function (){
     myLeads.push(inputEl.value)
     inputEl.value=null
+    localStorage.setItem("myLeads", JSON.stringify(myLeads))
     renderLeads()
 });
+
 
 function renderLeads(){
     let listItems = "";
